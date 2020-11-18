@@ -194,7 +194,8 @@ public class Server implements EndPoint {
 				// NIO freaks and returns immediately with 0 sometimes, so try to keep from hogging the CPU.
 				long elapsedTime = System.currentTimeMillis() - startTime;
 				try {
-					if (elapsedTime < 25) Thread.sleep(25 - elapsedTime);
+					int targetDuration = Math.min(timeout,25);
+					if (elapsedTime < targetDuration) Thread.sleep(targetDuration - elapsedTime);
 				} catch (InterruptedException ex) {
 				}
 			}
